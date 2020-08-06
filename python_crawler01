@@ -1,0 +1,20 @@
+import requests
+import csv
+from bs4 import BeautifulSoup
+
+response = requests.get(
+    "https://travel.ettoday.net/category/%E5%8F%B0%E4%B8%AD/")
+# 台中 https://travel.ettoday.net/category/%E5%8F%B0%E4%B8%AD/
+# 桃園 https://travel.ettoday.net/category/%E6%A1%83%E5%9C%92/
+soup = BeautifulSoup(response.text, "html.parser")
+#取出標題文字檔
+titles = soup.find_all("h3", itemprop="headline")
+Afile = open('Aout_TC_title.csv', "w", encoding='utf8')
+csvwriter = csv.writer(Afile)
+#使用迴圈方式寫入csv中
+for i in titles:
+    T = []
+    A=i.select_one("a").getText()
+    T.append(A)
+    csvwriter.writerow(T)
+Afile.close()
