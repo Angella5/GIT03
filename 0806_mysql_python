@@ -1,0 +1,16 @@
+import pymysql
+conn = pymysql.connect(host='localhost',port=3306,db='mylab',user='root',
+                       passwd='12345678',charset='utf8')
+c = conn.cursor()
+a = c.execute("SHOW DATABASES")
+for row in c.fetchall():
+    print(row)
+	
+#這邊是可以看 MySQL 中的表格資料
+import pymysql
+conn = pymysql.connect(host='localhost',port=3306,db='mylab',user='root',
+                       passwd='12345678',charset='utf8')
+c = conn.cursor()
+b = c.execute("SELECT * FROM students")
+for row in c.fetchall():
+    print(row)
